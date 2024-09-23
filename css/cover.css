@@ -4,19 +4,19 @@
 
 @font-face {
   font-family: 'NanumMyeongjo-r';
-  src: url('../font/NanumMyeongjo-Regular.ttf') format('truetype');
+  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'NanumMyeongjo-e';
-  src: url('../font/NanumMyeongjo-ExtraBold.ttf') format('truetype');
+  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'NanumMyeongjo-b';
-  src: url('../font/NanumMyeongjo-Bold.ttf') format('truetype');
+  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'DancingScript-b';
-  src: url('../font/DancingScript-Bold.ttf') format('truetype');
+  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
 }
 
 /* Links */
@@ -148,7 +148,7 @@ body {
 
 .cover-heading {
   margin-top: 7.5rem;
-  color: #117311;
+  color: #fefefe;
   font-family: NanumMyeongjo-b;
 }
 
