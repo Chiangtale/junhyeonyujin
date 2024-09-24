@@ -261,7 +261,7 @@ header {
 }
 
 .section4-title {
-  margin-top: 1em;
+  margin-top: 0.3em;
   color: #333;
   text-shadow: none;
 }
@@ -272,14 +272,14 @@ header {
 
 .section4-sec1 {
   font-family: NanumMyeongjo-r;
-  line-height: 1.5em;
+  line-height: 1em;
   font-size: 1.6rem;
 }
 
 .section4-sec2 {
   font-family: NanumMyeongjo-b;
-  line-height: 1.5em;
-  font-size: 0.7rem;
+  line-height: 1em;
+  font-size: 0.8rem;
 }
 
 .section4-sec3 {
