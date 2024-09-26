@@ -70,7 +70,26 @@
 
                 Toast.fire({
                     icon: 'success',
-			width: 600,
+			width: 200,
+                    title: '복사되었습니다.'
+                })
+            });
+		$("#toastStart2").click(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-center',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+			width: 200,
                     title: '복사되었습니다.'
                 })
             });
@@ -632,7 +651,7 @@ infowindow.open(map, marker);
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
                             <div class="accordion-body section6-location-sub">
                               <div class="container-fluid" style="align: center;">
-				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button">
+				<button type="button" id="toastStart2" class="wow fadeInUp btn section7-button">
                 하나 50891042570007 
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
