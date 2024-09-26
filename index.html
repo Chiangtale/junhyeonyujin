@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi">
     <meta name="description" content="한준현 ❤️ 권유진 결혼식에 초대합니다.">
     <meta name="author" content="Junhyeon Han">
@@ -45,6 +44,7 @@
         }
 
     </style>
+    <input type="text" value="50891042570007" id="copyTxt">
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
@@ -568,11 +568,10 @@ infowindow.open(map, marker);
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
                             <div class="accordion-body section6-location-sub">
                               <div class="container-fluid">
-				      <input type="text" value="50891042570007" id="copyTxt">
-				<button type="button" class="wow fadeInUp btn section7-button" onclick="copy()">
+				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button" onclick="copy1()">
                 하나 50891042570007 </br>
 					<script>
-						function copy() {
+						function copy1() {
   // 복사문구값 가져오기
   var copyTxt = document.getElementById("copyTxt");
 
@@ -589,7 +588,7 @@ infowindow.open(map, marker);
                     toast: true,
                     position: 'center-center',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 2000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -599,7 +598,7 @@ infowindow.open(map, marker);
 
                 Toast.fire({
                     icon: 'success',
-                    title: 'toast 알림이 정상적으로 실행 되었습니다.'
+                    title: '정상적으로 복사 되었습니다.'
                 })
             });
         });
@@ -687,7 +686,7 @@ infowindow.open(map, marker);
         </footer>
     </main>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
