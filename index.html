@@ -568,25 +568,26 @@ infowindow.open(map, marker);
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
                             <div class="accordion-body section6-location-sub">
                               <div class="container-fluid">
-				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button" onclick="copy1()">
+				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button" onclick="copyToClipboard()">
                 하나 50891042570007 </br>
 					<script>
-						function copy1() {
-  // 복사문구값 가져오기
-  var copyTxt = '50891042570007';
+						function copyToClipboard(val) {
+    var t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = val;
+    t.select();
+    document.execCommand('copy');
+    document.body.removeChild(t);
+						}
 
-  // 복사문구 선택
-  copyTxt.select();
-  copyTxt.setSelectionRange(0, 99999); // Mobile 대응
-
-   // 복사
-  navigator.clipboard.writeText(copyTxt.value);
+    $('toastStart').click(function() {
+      copyToClipboard('50891042570007');
 							
 	$().ready(function () {
             $("#toastStart").click(function () {
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: 'center-center',
+                    position: 'bottom-center',
                     showConfirmButton: false,
                     timer: 2000,
                     timerProgressBar: true,
