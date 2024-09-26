@@ -54,6 +54,26 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/wow.min.js"></script>
     <script>
+	    $().ready(function () {
+            $("#toastStart").click(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-center',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: '복사되었습니다.'
+                })
+            });
+        });
         var wow = new WOW(
             {
                 boxClass:     'wow',      // animated element css class (default is wow)
@@ -568,34 +588,12 @@ infowindow.open(map, marker);
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
                             <div class="accordion-body section6-location-sub">
                               <div class="container-fluid">
-				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button" onclick="copyToClipboard();">
+				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button">
                 하나 50891042570007 </br>
-					<script>
+					
+
 						
-							
-	$().ready(function () {
-            $("#toastStart").click(function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-center',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
 
-                Toast.fire({
-                    icon: 'success',
-                    title: '정상적으로 복사 되었습니다.'
-                })
-            });
-        });
-
-						}
-</script>
 				</button>
 				      
                             </div>
