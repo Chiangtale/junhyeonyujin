@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi">
     <meta name="description" content="한준현 ❤️ 권유진 결혼식에 초대합니다.">
     <meta name="author" content="Junhyeon Han">
@@ -420,7 +421,7 @@
         <div class="wow fadeInUp section5 inner cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <br/>
             <p class="top-title">Date</p>
-            <p class="section5-title section5-sub" style="margin-top: 0;">1월 18일 · 토요일 · 오후 6:00</p>
+            <p class="section5-title section5-sub" style="margin-top: 0;">2025년 1월 18일 · 토요일 · 오후 6:00</p>
             <table class="wow fadeInUp section5-title section5-table">
                 <tr>
                     <td class="sun">S</td>
@@ -511,7 +512,7 @@
 var cityhall = new naver.maps.LatLng(37.51118, 127.03168),
     map = new naver.maps.Map('map', {
         center: cityhall.destinationPoint(0, 500),
-        zoom: 15
+        zoom: 5
     }),
     marker = new naver.maps.Marker({
         map: map,
@@ -520,12 +521,7 @@ var cityhall = new naver.maps.LatLng(37.51118, 127.03168),
 
 var contentString = [
         '<div class="iw_inner">',
-        '   <h3>엘리에나호텔</h3>',
-        '   <p><br />',
-        '      <br />',
-        '      <br />',
-        '       <a href="http://www.seoul.go.kr" target="_blank"></a>',
-        '   </p>',
+        '   <img class="img-fluid" src="img/test/2.jpg"',
         '</div>'
     ].join('');
 
@@ -571,11 +567,46 @@ infowindow.open(map, marker);
 
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
                             <div class="accordion-body section6-location-sub">
-                                [지하철 5호선 영등포시장역]<br/>
-								4번 출구로 나와 도보 1분거리<br/>
-								[지하철 1호선 영등포역]<br/>
-								뉴타운 지하상가 4번출구 새길병원 방면<br/>
-								
+                              <div class="container-fluid">
+				      <input type="text" value="50891042570007" id="copyTxt">
+				<button type="button" class="wow fadeInUp btn section7-button" onclick="copy()">
+                하나 50891042570007 </br>
+					<script>
+						function copy() {
+  // 복사문구값 가져오기
+  var copyTxt = document.getElementById("copyTxt");
+
+  // 복사문구 선택
+  copyTxt.select();
+  copyTxt.setSelectionRange(0, 99999); // Mobile 대응
+
+   // 복사
+  navigator.clipboard.writeText(copyTxt.value);
+							
+	$().ready(function () {
+            $("#toastStart").click(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'center-center',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'toast 알림이 정상적으로 실행 되었습니다.'
+                })
+            });
+        });
+
+						}
+</script>
+				      
                             </div>
                         </div>
 
