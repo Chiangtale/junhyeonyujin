@@ -271,6 +271,7 @@ hr {
 .section3-container {
   aspect-ratio: 1/1;
   grid-gap: 0;
+  padding: 0;
 }
 
 .section3-image {
