@@ -171,6 +171,14 @@ header {
   }
 }
 
+hr {
+  width : 100%;
+}
+
+.hr-solid {
+  border : 0px;
+  border-top: 5px solid #d1b497;
+}
 
 /*
  * section
