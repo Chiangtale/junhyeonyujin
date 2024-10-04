@@ -468,7 +468,159 @@
 
 
 	
-      
+        <div class="wow fadeInUp inner cover-container d-flex w-100 h-100 mx-auto flex-column">
+            <br/><br/>
+            <p class="top-title">Location</p>
+            <div class="wow fadeInUp  section6-title">
+                <p class="section6-location-main" style="margin-bottom: 0;">엘리에나호텔 3층 임페리얼 홀</p>
+                <p class="section6-location-sub" style="text-align: center;">
+                    서울 강남구 논현로 645
+                </p>
+            </div>
+			<br/>
+			<button type="button" class="wow fadeInUp btn section7-button" onclick="location.href='https://map.naver.com/p/search/%EC%97%98%EB%A6%AC%EC%97%90%EB%82%98%ED%98%B8%ED%85%94/?c=15.00,0,0,0,dh' ">
+                엘리에나호텔 네이버지도 열기
+            </button>
+            <br/>
+            <div id="map" class="wow fadeInUp" style="width:100%;height:350px;"></div>
+
+            <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pkio1ty82t"></script>
+            <script>
+               var HOME_PATH = window.HOME_PATH || '.';
+
+var cityhall = new naver.maps.LatLng(37.51118, 127.03168),
+    map = new naver.maps.Map('map', {
+        center: cityhall.destinationPoint(0, 500),
+        zoom: 13
+    }),
+    marker = new naver.maps.Marker({
+        map: map,
+        position: cityhall
+    });
+
+var contentString = [
+        '<div class="iw_inner">',
+        '   <img class="img-fluid" src="img/test/2.jpg"',
+        '</div>'
+    ].join('');
+
+var infowindow = new naver.maps.InfoWindow({
+    content: contentString
+});
+
+naver.maps.Event.addListener(marker, "click", function(e) {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map, marker);
+    }
+});
+
+infowindow.open(map, marker);
+            </script>
+		<div class="wow fadeInUp section6-location p-3">
+			<p class="card-body section6-location-sub">
+			🚌 버스<br/>
+147, 241, 463, 3412, 4211<br/>
+논현동고개 하차 하차 후 도보 130m<br/>
+			<br/>
+🚆 지하철<br/>
+7호선: 학동역 4번 출구 하차 후 도보4분거리<br/>
+9호선: 언주역 2번 출구 하차 후 도보6분거리<br/>
+			<br/>
+
+🚗 자차<br/>
+서울특별시 강남구 논현로 645</br></p>
+		</div>
+	</div>
+	    
+
+            <div class="wow fadeInUp section6-location p-3">
+                <div class="accordion" id="accordion1">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    신랑측에게
+                                </button>
+                        </h2>
+
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
+                            <div class="accordion-body section6-location-sub">
+                              <div class="container-fluid" style="align: center;">
+				<button type="button" id="toastStart" class="wow fadeInUp btn section7-button">
+                하나 50891042570007 
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+</svg>
+				</br>
+					
+
+					
+				</button>
+				      
+                            </div>
+                        </div>
+			</div>
+
+			<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
+                            <div class="accordion-body section6-location-sub">
+                              
+								
+                            </div>
+                        </div>
+
+			<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion1">
+                            <div class="accordion-body section6-location-sub">
+                              
+                            </div>
+                        </div>
+		    </div>
+                </div>
+            </div>
+
+	<div class="wow fadeInUp section6-location p-3">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    신부측에게
+                                </button>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                            <div class="accordion-body section6-location-sub">
+                              <div class="container-fluid" style="align: center;">
+				<button type="button" id="toastStart2" class="wow fadeInUp btn section7-button">
+                하나 50891042570007 
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+</svg>
+				</br>
+					
+
+					
+				</button>
+				      
+                            </div>
+                        </div>
+			</div>
+
+			<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                            <div class="accordion-body section6-location-sub">
+                               
+								
+                            </div>
+                        </div>
+
+			<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                            <div class="accordion-body section6-location-sub">
+                               
+								
+                            </div>
+                        </div>
+		    </div>
+                </div>
+            </div>
 
 	    
             <br/><br/>
