@@ -393,7 +393,8 @@ hr {
 .section6-location-main {
   font-family: NanumMyeongjo-e;
   line-height: 1.5em;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
+  text-align: left;
 }
 
 .section6-sub {
