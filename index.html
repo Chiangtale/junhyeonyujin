@@ -54,46 +54,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/wow.min.js"></script>
     <script>
-	    $().ready(function () {
-            $("#toastStart").click(function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-center',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'success',
-			width: 100%,
-                    title: '복사되었습니다.'
-                })
-            });
-		$("#toastStart2").click(function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom-center',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: false,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'success',
-			width: 100%,
-                    title: '복사되었습니다.'
-                })
-            });
-        });
+	  
+            
+	    
         var wow = new WOW(
             {
                 boxClass:     'wow',      // animated element css class (default is wow)
