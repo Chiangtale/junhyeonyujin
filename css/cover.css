@@ -4,19 +4,19 @@
 
 @font-face {
   font-family: 'NanumMyeongjo-r';
-  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
+  src: url('../font/Pretendard-Regular.otf') format('truetype');
 }
 @font-face {
   font-family: 'NanumMyeongjo-e';
-  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
+  src: url('../font/Pretendard-Bold.otf') format('truetype');
 }
 @font-face {
   font-family: 'NanumMyeongjo-b';
-  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
+  src: url('../font/Pretendard-ExtraBold.otf') format('truetype');
 }
 @font-face {
   font-family: 'DancingScript-b';
-  src: url('../font/GowunDodum-Regular.ttf') format('truetype');
+  src: url('../font/Pretendard-ExtraBold.otf') format('truetype');
 }
 
 /* Links */
