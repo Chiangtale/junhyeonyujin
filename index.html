@@ -448,37 +448,26 @@
             <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pkio1ty82t"></script>
             <script>
                var HOME_PATH = window.HOME_PATH || '.';
+		    var position = new naver.maps.LatLng(37.51118, 127.03168);
 
-var cityhall = new naver.maps.LatLng(37.51118, 127.03168),
-    map = new naver.maps.Map('map', {
-        center: cityhall.destinationPoint(0, 500),
-        zoom: 15
-    }),
-    marker = new naver.maps.Marker({
-        map: map,
-        position: cityhall
-    });
-
-var contentString = [
-        '<div class="iw_inner">',
-        ' <p style="color:black;">엘리에나호텔 3층</p>',
-	' <img src="img/text/spot.jpg" width="31.5" height="56"/>',
-        '</div>'
-    ].join('');
-
-var infowindow = new naver.maps.InfoWindow({
-    content: contentString
+var map = new naver.maps.Map('map', {
+    center: position,
+    zoom: 15
 });
 
-naver.maps.Event.addListener(marker, "click", function(e) {
-    if (infowindow.getMap()) {
-        infowindow.close();
-    } else {
-        infowindow.open(map, marker);
+var markerOptions = {
+    position: position.destinationPoint(90, 15),
+    map: map,
+    icon: {
+        url:img/text/spot.jpg',
+        size: new naver.maps.Size(31.5, 56),
+        origin: new naver.maps.Point(0, 0),
+        anchor: new naver.maps.Point(15.7, 28)
     }
-});
+};
 
-infowindow.open(map, marker);
+var marker = new naver.maps.Marker(markerOptions);
+
             </script>
 	    </div>
 		<div class="wow fadeInUp section6-location p-3">
