@@ -210,7 +210,7 @@
 	<div class="wow fadeInUp cover-container d-flex w-100 h-100 mx-auto flex-column">
             <br/><br/>
             <div class="container section4-title">
-		      <img class="img-fluid" src="img/text/jh.jpg" alt="" /><br/>
+		      <img class="img-fluid" src="img/text/jh.jpg" alt="" /><br/><br/><br/>
 		    <img class="img-fluid" src="img/text/yj.jpg" alt="" /><br/>
 	    </div>
             <br/><br/>
@@ -222,11 +222,11 @@
 	    
 		
 
-        <div id="gallery" class="cover-container d-flex w-100 h-100 mx-auto flex-column">
+        <div id="gallery" class="cover-container d-flex w-100 h-100 mx-auto flex-column" style='background-color:#e0e8d9'>
 		<br/>
             <p class="top-title">Gallery</p>
 			
-            <div class="row row-cols-3 wow fadeIn mx-auto">
+            <div class="row row-cols-3 mx-auto">
                 <!-- TODO : select fluid or thumbnail and edit -->
                 <div class="section3-container">
                     <a href="img/test/1.jpg">
@@ -355,14 +355,7 @@
                     </div>
                 </div>
                 <br/>
-                <div class="row" style="margin-top:1rem; margin-bottom: 1rem">
-                    <div class="col-6 section4-sec1-2">
-                        <span class="section4-sec1">신랑 한준현</span>
-                    </div>
-                    <div class="col section4-sec1-2">
-                        <span class="section4-sec1">신부 권유진</span>
-                    </div>
-                </div>
+                
                 
            
 	    
@@ -498,7 +491,7 @@
 var cityhall = new naver.maps.LatLng(37.51118, 127.03168),
     map = new naver.maps.Map('map', {
         center: cityhall.destinationPoint(0, 500),
-        zoom: 5
+        zoom: 13
     }),
     marker = new naver.maps.Marker({
         map: map,
