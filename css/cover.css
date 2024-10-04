@@ -265,12 +265,13 @@ hr {
 }
 
 .section3-cover {
-  margin-gap: 0;
+  grid-gap: 0;
 }
 
 .section3-container {
   aspect-ratio: 1/1;
-  margin-gap: 0;
+  grid-gap: 0;
+  padding: 0;
 }
 
 .section3-image {
