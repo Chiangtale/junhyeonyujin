@@ -264,8 +264,13 @@ hr {
   margin-bottom: 2em;
 }
 
+.section3-cover {
+  margin-gap: 0;
+}
+
 .section3-container {
   aspect-ratio: 1/1;
+  margin-gap: 0;
 }
 
 .section3-image {
