@@ -161,225 +161,156 @@
 
 
    <script>
-import APIGuestBook from "APIs/APIGuestBook";
-import GuestBookItem from "Components/GuestBookItem";
-import IconArrowDown from 'images/icon-arrow-down-gray.svg';
-import IconArrowLeft from "images/icon-arrow-left-white.svg";
-import IconArrowRight from "images/icon-arrow-right-gray.svg";
-import IconArrowUp from "images/icon-arrow-up-gray.svg";
-import IconNotice from "images/icon-notice.svg";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { navigationPath } from "util/navigationPath";
+import bcrypt from 'bcryptjs';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import styled from 'styled-components';
 
-const GuestBookPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [guestBookList, setGuestBookList] = useState([]);
-  const [guestBookCount, setGuestBookCount] = useState(0);
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const [inputNickname, setInputNickname] = useState('')
-  const [inputComment, setInputComment] = useState('')
-  const lastDivRef = useRef(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+import AllPostsModal from 'components/guestbook/AllPostsModal';
+import PostFormModal, {
+  GuestBookPostForm,
+} from 'components/guestbook/PostFormModal';
+import SimplePostCard from 'components/guestbook/SimplePostCard';
+import Section from 'components/Section';
+import { usePostsDispatch } from 'contexts/PostsContext';
+import useFetchPosts from 'hooks/useFetchPosts';
+import { db } from 'utils/firebase';
+import { trackEvent } from 'utils/gtag';
 
-  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>FOR DEBUG>>>>>>>>>>>>>>>
-  const TEST = async () => { };
+const PostsContainer = styled.div`
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.25rem;
+    background: #ccc;
+  }
+`;
+
+export interface Post {
+  id: string;
+  name: string;
+  content: string;
+  createdAt: Date;
+}
+
+function GuestBook() {
+  const [isFormModalOpen, setIsFormModalOpen] = useState<boolean>(false);
+  const [isPostsModalOpen, setIsPostsModalOpen] = useState<boolean>(false);
+  const { posts, fetchFirstPage } = useFetchPosts();
+  const dispatch = usePostsDispatch();
+
+  const handleFormModalOpen = () => {
+    trackEvent('open_guestbook_form');
+    setIsFormModalOpen(true);
+  };
+  const handleFormModalClose = () => {
+    setIsFormModalOpen(false);
+  };
+
+  const handleAllPostsModalOpen = () => {
+    trackEvent('open_guestbook_all_posts');
+    setIsPostsModalOpen(true);
+  };
+  const handleAllPostsModalClose = () => {
+    setIsPostsModalOpen(false);
+  };
 
   useEffect(() => {
-    if (isLoading) {
-      console.log("[GuestBookPage] LOADING...");
-    } else {
-      console.log("[GuestBookPage] LOADING COMPLETE!");
-    }
-  }, [isLoading]);
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<FOR DEBUG<<<<<<<<<<<<<<<
+    fetchFirstPage();
+  }, [fetchFirstPage]);
 
-  const sortCallbackByCreatedAt = (a,b) => {
-    const dateA = new Date(a.created_at);
-    const dateB = new Date(b.created_at);
-    return dateA.getTime() - dateB.getTime();
-  }
-
-  /**
-   * FOR INITIALIZE
-   */
-  const refresh = async () => {
-    setIsLoading(true);
-    setInputComment('');
-    setInputNickname('');
-    APIGuestBook.getGuestBook().then(
-      (res) => {
-        if (res.guestBook === undefined) return;
-        const guestBookList = Object.values(res.guestBook).sort(sortCallbackByCreatedAt)
-        setGuestBookCount(res.count)
-        setGuestBookList(guestBookList)
-        setIsLoading(false);
-      })
-  }
-  useEffect(() => {
-    refresh();
-  }, []);
-
-  /**
-   * events
-   */
-  const onClickBackButton = () => {
-    if (state === null) navigate(navigationPath.SET_LIST_PAGE)
-    if (state !== undefined) navigate(state)
-  }
-
-  const onChangeInput = (event, setState) => {
-    setState(event.target.value);
-  }
-
-  const inputHandler = (event) => {
-
-  }
-
-  const onClickSubmit = async () => {
-    if (inputComment === '' || inputNickname === '') return;
-    APIGuestBook.postGuestBook(inputNickname, inputComment)
-      .then((res) => {
-        setInputComment('');
-        setInputNickname('');
-        APIGuestBook.getGuestBook().then(
-          (res) => {
-            if (res.guestBook === undefined) return;
-            const guestBookList = Object.values(res.guestBook).sort(sortCallbackByCreatedAt)
-            setGuestBookCount(res.count)
-            setGuestBookList(guestBookList)
-          })
-        if(lastDivRef.current !== null){
-          lastDivRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-      })
-  }
-
-  const onClickExpand = () => {
-    setIsExpanded(true)
-  }
-
-  const onClickShrink = () => {
-    setIsExpanded(false)
-  }
-
-  const onClickGoDown = () => {
-    if(lastDivRef.current !== null){
-      lastDivRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  useEffect(() => {
-    if(lastDivRef.current !== null){
-      lastDivRef.current.scrollIntoView();
-    }
-  }, [isLoading])
+  const onFormValid = async (data: GuestBookPostForm) => {
+    const { name, password, content } = data;
+    const createdAt = new Date();
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const docRef = await addDoc(collection(db, 'guestBook'), {
+      name,
+      password: hashedPassword,
+      content: content.replaceAll('\n', '\\n'),
+      isDeleted: false,
+      createdAt,
+    });
+    const newDocument = await getDoc(doc(db, 'guestBook', docRef.id));
+    dispatch({ type: 'ADD_ITEM_FIRST', post: newDocument });
+    setIsFormModalOpen(false);
+    trackEvent('write_guest_book', { name });
+    toast.info('게시글이 작성되었어요!');
+    return true;
+  };
 
   return (
-    <div>
-      <div className="fixed z-[-1] left-0 top-0 w-screen h-screen bg-BLUE_4" />
-      <div className="fixed left-0 top-0 z-3 flex-col w-full">
-        <div className="h-[3.5rem] bg-[rgba(110,148,175,0.7)] w-full flex justify-between items-center">
-          <img
-            className="ml-3 h-[1.5rem]"
-            alt="leftarrow"
-            src={IconArrowLeft}
-            onClick={onClickBackButton}
-          />
-          <div className="text-white font-bold">14fret 정기공연 방명록</div>
-          <div />
-        </div>
-        {isExpanded ? (
-          <div className="transition-all duration-100 h-[6rem] bg-[#FBF9FC] rounded-lg w-auto flex justify-between mx-5 p-2 pr-3">
-            <img className="h-[2.5rem]" alt="notice" src={IconNotice} />
-            <div className="w-full text-sm whitespace-pre-line">
-              {"14FRET이 열심히 준비한 공연입니다!\n따뜻한 말과 응원 한 마디 부탁드립니다.\n사소한 말이 상처가 될 수 있습니다.\n악플은 삼가해주시기 바랍니다!"}
+    <Section className="py-20">
+      <div className="w-full max-w-2xl mx-auto space-y-12 md:px-4">
+        <h1 className="text-3xl text-center">방명록</h1>
+        <div className="space-y-4">
+          {posts.length === 0 ? (
+            <div className="flex flex-col w-full h-64 py-4 relative justify-center items-center">
+              <span>아직 아무 글도 없어요.</span>
+              <span>새 글을 남겨보세요!</span>
             </div>
-            <img
-              className="mt-1 h-[1.5rem] w-[1.5rem]"
-              alt="uparrow"
-              src={IconArrowUp}
-              onClick={onClickShrink}
-            />
-          </div>
-        ) : (
-          <div className="transition-all duration-100 h-[3.5rem] bg-[#FBF9FC] rounded-lg w-auto flex justify-between mx-5 p-2 pr-3">
-            <img className="h-[2.5rem]" alt="notice" src={IconNotice} />
-            <div className="w-full w-[75%] text-sm">
-              {"14FRET이 열심히 준비한 공연입니다!"}
-            </div>
-            <img
-              className="mt-1 h-[1.5rem] w-[1.5rem]"
-              alt="rightarrow"
-              src={IconArrowRight}
-              onClick={onClickExpand}
-            />
-          </div>
-        )}
-      </div>
-      <div className="mt-[7rem] mb-[144px] max-w-lg">
-        {isLoading ? null : (
-          <div>
-            {guestBookList.map((e, index) => {
-              return (
-                <div
-                  key={`guestbook-${index}`}
-                  ref={index === guestBookList.length - 1 ? lastDivRef : null}
+          ) : (
+            <PostsContainer className="overflow-x-auto flex w-full space-x-3 h-64 py-4 relative">
+              {posts.slice(0, 10).map((post) => (
+                <SimplePostCard key={post.id} post={post} />
+              ))}
+              <div className="flex flex-col rounded-xl w-44 max-w-xl  flex-none p-4 justify-center items-center">
+                <button
+                  className="flex flex-col items-center space-y-2"
+                  onClick={handleAllPostsModalOpen}
                 >
-                  <GuestBookItem
-                    index={index + 1}
-                    nickname={e.nickname}
-                    comment={e.comment}
-                    date={e.created_at}
-                  />
-                </div>
-              );
-            })}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776"
+                    />
+                  </svg>
+                  <span className="text-sm font-sans font-bold">
+                    게시글 전체 보기
+                  </span>
+                </button>
+              </div>
+            </PostsContainer>
+          )}
+          <div className="flex flex-row justify-end space-x-2 text-sm font-sans">
+            {posts.length >= 1 && (
+              <button className="p-1" onClick={handleAllPostsModalOpen}>
+                전체 보기
+              </button>
+            )}
+            <button
+              className="p-1 font-bold flex-row"
+              onClick={handleFormModalOpen}
+            >
+              글 남기기
+            </button>
           </div>
-        )}
-      </div>
-      <div className="flex gap-3 flex-col fixed bottom-0 right-0 w-full  bg-[rgba(255,255,255,0.9)] p-4">
-        <div className="absolute w-[2rem] h-[2rem] right-[0.5rem] top-[-3rem] rounded-full border border-gray-500 bg-[rgba(255,255,255,0.5)] flex justify-center items-center">
-            <img
-              className="h-[1.5rem]"
-              alt="downarrow"
-              src={IconArrowDown}
-              onClick={onClickGoDown}
-          />
-        </div>
-        <input
-          type="text"
-          maxLength={10}
-          placeholder="닉네임을 입력해주세요!"
-          onChange={(event) => onChangeInput(event, setInputNickname)}
-          onInput={inputHandler}
-          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6"
-          value={inputNickname}
-        />
-        <div className="flex gap-4">
-          <textarea
-            type="text"
-            maxLength={100}
-            placeholder="내용을 입력해주세요!"
-            onChange={(event) => onChangeInput(event, setInputComment)}
-            onInput={inputHandler}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6 resize-none"
-            value={inputComment}
-          />
-          <button
-            onClick={onClickSubmit}
-            className="flex w-[4rem] h-[4rem] items-center justify-center rounded-md bg-BLUE_4 px-3 py-1.5  text-white shadow-sm"
-          >
-            게시
-          </button>
         </div>
       </div>
-    </div>
+      <PostFormModal
+        isOpen={isFormModalOpen}
+        handleClose={handleFormModalClose}
+        onFormValid={onFormValid}
+      />
+      <AllPostsModal
+        isOpen={isPostsModalOpen}
+        handleClose={handleAllPostsModalClose}
+      />
+    </Section>
   );
 }
 
-export default GuestBookPage;
+export default GuestBook;
 	    
     </script>
 
